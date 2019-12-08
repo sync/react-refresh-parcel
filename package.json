@@ -1,0 +1,35 @@
+{
+  "name": "@parcel/react-refresh-example",
+  "version": "2.0.0-alpha.3.2",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "parcel src/index.html",
+    "clean": "rm -rf .parcel-cache dist"
+  },
+  "devDependencies": {
+    "parcel": "2.0.0-alpha.3.2"
+  },
+  "dependencies": {
+    "react": "16.12.0",
+    "react-dom": "16.12.0"
+  },
+  "browser": "dist/legacy/index.html",
+  "browserModern": "dist/modern/index.html",
+  "targets": {
+    "browserModern": {
+      "engines": {
+        "browsers": [
+          "last 1 Chrome version"
+        ]
+      }
+    },
+    "browser": {
+      "engines": {
+        "browsers": [
+          "> 0.25%"
+        ]
+      }
+    }
+  }
+}

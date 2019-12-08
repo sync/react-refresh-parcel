@@ -1,0 +1,6 @@
+.DS_Store
+/dist/
+/lib/
+node_modules
+yarn-error.log
+.parcel-cache
