@@ -1,22 +1,14 @@
-import React, {useState} from 'react';
-import ClassDefault from './ClassDefault';
-import {ClassNamed} from './ClassNamed';
-import FunctionDefault from './FunctionDefault';
-import {FunctionNamed} from './FunctionNamed';
-
-const LazyComponent = React.lazy(() => import('./LazyComponent'));
+import React from 'react';
 
 function App() {
   return (
-    <div>
-      <h1>App has {Math.random()}</h1>
-      <ClassDefault />
-      <ClassNamed />
-      <FunctionDefault />
-      <FunctionNamed />
-      <React.Suspense fallback={<h1>Loading</h1>}>
-        <LazyComponent />
-      </React.Suspense>
+    <div class="bg-white rounded-lg m-auto p-6">
+      <div class="text-center">
+        <h2 class="text-lg">Erin Lindford</h2>
+        <div class="text-purple-500">Customer Support</div>
+        <div class="text-gray-600">erinlindford@example.com</div>
+        <div class="text-gray-600">(555) 765-4321</div>
+      </div>
     </div>
   );
 }
