@@ -1,0 +1,8 @@
+node_modules
+schema.grapqhl
+dist
+lib
+.parcel-cache
+__generated__
+postcss.config.js
+tailwind.config.js

@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "jingly": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "default": "https://serve.onegraph.com/dynamic?app_id=fe51d558-d9f0-4b37-a6d7-26283f1e485e"
+        }
+      }
+    }
+  }
+}

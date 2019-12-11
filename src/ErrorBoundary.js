@@ -16,16 +16,22 @@ export default class ErrorBoundary extends React.Component {
   }
 
   render() {
-    if (this.state.error != null) {
+    const { error } = this.state;
+    const { children } = this.props;
+
+    if (error != null) {
       return (
         <div>
-          <div>Error: {this.state.error.message}</div>
           <div>
-            <pre>{JSON.stringify(this.state.error.source, null, 2)}</pre>
+            Error:
+            {error.message}
+          </div>
+          <div>
+            <pre>{JSON.stringify(error.source, null, 2)}</pre>
           </div>
         </div>
       );
     }
-    return this.props.children;
+    return children;
   }
 }

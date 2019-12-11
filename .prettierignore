@@ -1,0 +1,6 @@
+node_modules
+schema.grapqhl
+dist
+lib
+.parcel-cache
+__generated__

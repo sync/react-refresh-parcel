@@ -1,34 +1,35 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import fetch from 'isomorphic-fetch';
+import OneGraphAuth from 'onegraph-auth';
+
+// eslint-disable-next-line prefer-destructuring
+const ONEGRAPH_APP_ID = process.env.ONEGRAPH_APP_ID;
+
+export const auth = new OneGraphAuth({
+  appId: ONEGRAPH_APP_ID,
+});
 
 /**
- * Relay requires developers to configure a "fetch" function that tells Relay how to load
- * the results of GraphQL queries from your server (or other data source). See more at
- * https://relay.dev/docs/en/quick-start-guide#relay-environment.
+ * Relay requires developers to confiimport OneGraphAuth from "onegraph-auth"gure a "fetch" function that tells Relay how to load
+ * the results of GraphQL queries froimport OneGraphAuth from "onegraph-auth"m your server (or other data source). See more at
+ * https://relay.dev/docs/en/quick-stimport OneGraphAuth from "onegraph-auth"art-guide#relay-environment.
  */
 async function fetchRelay(params, variables, _cacheConfig) {
-  // Check that the auth token is configured
-  const REACT_APP_GITHUB_AUTH_TOKEN = process.env.REACT_APP_GITHUB_AUTH_TOKEN;
-  if (
-    REACT_APP_GITHUB_AUTH_TOKEN == null ||
-    REACT_APP_GITHUB_AUTH_TOKEN === ''
-  ) {
-    throw new Error(
-      'This app requires a GitHub authentication token to be configured. See readme.md for setup details.',
-    );
-  }
-
   // Fetch data from GitHub's GraphQL API:
-  const response = await fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers: {
-      Authorization: `bearer ${REACT_APP_GITHUB_AUTH_TOKEN}`,
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `https://serve.onegraph.com/dynamic?app_id=${ONEGRAPH_APP_ID}`,
+    {
+      method: 'POST',
+      headers: {
+        ...auth.authHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: params.text,
+        variables,
+      }),
     },
-    body: JSON.stringify({
-      query: params.text,
-      variables,
-    }),
-  });
+  );
 
   // Get the response as JSON
   const json = await response.json();
@@ -37,6 +38,7 @@ async function fetchRelay(params, variables, _cacheConfig) {
   // property of the response. If any exceptions occurred when processing the request,
   // throw an error to indicate to the developer what went wrong.
   if (Array.isArray(json.errors)) {
+    // eslint-disable-next-line no-console
     console.log(json.errors);
     throw new Error(
       `Error fetching GraphQL query '${
